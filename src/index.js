@@ -4,6 +4,7 @@ const morgan = require("morgan");
 
 // setting
 app.set("port", process.env.PORT || 3000);
+app.set("json spaces", 2);
 
 // Morgan es un middleware (funcion que procesa datos
 // antes de que el servidor los reciba)
@@ -14,9 +15,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // rutas
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(require("./routes/index"));
+app.use("/api/movies", require("./routes/movies"));
+app.use("/api/users", require("./routes/users"));
 
 // empezando servidor
 app.listen(app.get("port"), () => {
